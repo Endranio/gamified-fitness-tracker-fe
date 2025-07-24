@@ -1,5 +1,8 @@
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Providers } from "../utils/providers";
+import { ModeToggle } from "../utils/toggle-theme";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,12 +25,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          <ModeToggle />
+           <Toaster position="bottom-right" richColors />
+          {children}
+        </Providers>
       </body>
     </html>
   );
